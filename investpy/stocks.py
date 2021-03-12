@@ -578,8 +578,10 @@ def get_stock_historical_data(stock, country, from_date, to_date, as_json=False,
                 
                 info = []
             
-                for nested_ in elements_.xpath(".//td"):
+                for idx, nested_ in enumerate(elements_.xpath(".//td")):
                     info.append(nested_.get('data-real-value'))
+                    if idx == 6 and nested_.text:
+                        info.append(nested_.text)
 
                 if data_flag is True:
                     stock_date = datetime.strptime(str(datetime.fromtimestamp(int(info[0]), tz=pytz.timezone('GMT')).date()), '%Y-%m-%d')
@@ -590,10 +592,11 @@ def get_stock_historical_data(stock, country, from_date, to_date, as_json=False,
                     stock_low = float(info[4].replace(',', ''))
 
                     stock_volume = int(info[5])
+                    stock_change = float(info[7].replace("%", ""))
 
                     result.insert(len(result),
                                   Data(stock_date, stock_open, stock_high, stock_low,
-                                       stock_close, stock_volume, stock_currency, None))
+                                       stock_close, stock_volume, stock_currency, None, stock_change))
 
             if data_flag is True:
                 if order in ['ascending', 'asc']:

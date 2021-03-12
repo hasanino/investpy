@@ -28,7 +28,7 @@ class Data(object):
     
     """
 
-    def __init__(self, date_, open_, high_, low_, close_, volume_, currency_, exchange_):
+    def __init__(self, date_, open_, high_, low_, close_, volume_, currency_, exchange_, change_):
         self.date = date_
         self.open = open_
         self.high = high_
@@ -37,6 +37,7 @@ class Data(object):
         self.volume = volume_
         self.currency = currency_
         self.exchange = exchange_
+        self.change = change_
 
     def stock_to_dict(self):
         return {
@@ -46,6 +47,7 @@ class Data(object):
             'Low': self.low,
             'Close': self.close,
             'Volume': self.volume,
+            'Change': self.change,
             'Currency': self.currency,
         }
 
@@ -57,6 +59,7 @@ class Data(object):
             'low': self.low,
             'close': self.close,
             'volume': self.volume,
+            'change': self.change,
             'currency': self.currency,
         }
 
